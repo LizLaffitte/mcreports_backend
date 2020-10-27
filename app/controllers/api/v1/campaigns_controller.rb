@@ -11,15 +11,17 @@ class Api::V1::CampaignsController < ApplicationController
                 :api_key =>ENV['API_KEY'],
                 :server =>  ENV['PREFIX']
             })
-            # byebug
             response = client.reports.get_all_campaign_reports
+            # Eventually save response to database instead of just serving it.
+            # response["reports"].each |report| do
+              
+            # end
             render json: response["reports"]
           rescue MailchimpMarketing::ApiError => e
             puts "Error: #{e}"
           end
 
         campaigns = Campaign.all
-        
     end
 
 end
